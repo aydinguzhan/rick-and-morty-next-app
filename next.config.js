@@ -4,13 +4,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "www.pr-agent.media", // www eklendi
+        hostname: "www.pr-agent.media",
         pathname: "/wp-content/uploads/**",
       },
       {
         protocol: "https",
         hostname: "rickandmortyapi.com",
-        pathname: "/api/character/**",
+        pathname: "/api/character/avatar/**",
       },
     ],
   },

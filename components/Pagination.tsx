@@ -1,65 +1,82 @@
 "use client";
 
-import Link from "next/link";
-
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
-  searchQuery?: string; // ?name parametresi
+  onPageChange: (page: number) => void;
 };
 
 export default function Pagination({
   currentPage,
   totalPages,
-  searchQuery = "",
+  onPageChange,
 }: PaginationProps) {
-  const getQuery = (page: number) =>
-    searchQuery ? `?page=${page}&name=${searchQuery}` : `?page=${page}`;
+  const getPageNumbers = (): (number | string)[] => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (currentPage > 3) pages.push("…");
+
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let i = start; i <= end; i++) pages.push(i);
+
+      if (currentPage < totalPages - 2) pages.push("…");
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
+  const pageNumbers = getPageNumbers();
 
   return (
     <div className="flex justify-center items-center gap-2 mt-6 flex-wrap">
-      {/* Prev Button */}
-      {currentPage > 1 ? (
-        <Link
-          href={getQuery(currentPage - 1)}
-          className="px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-600 transition"
-        >
-          Prev
-        </Link>
-      ) : (
-        <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded cursor-not-allowed">
-          Prev
-        </span>
+      <button
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className={`px-4 py-2 rounded ${
+          currentPage === 1
+            ? "bg-gray-300 text-gray-700"
+            : "bg-sky-500 text-white hover:bg-sky-600"
+        }`}
+      >
+        Prev
+      </button>
+
+      {pageNumbers.map((num, idx) =>
+        num === "…" ? (
+          <span key={`dots-${idx}`} className="px-3 py-1 text-white">
+            …
+          </span>
+        ) : (
+          <button
+            key={num}
+            onClick={() => onPageChange(Number(num))}
+            className={`px-3 py-1 rounded ${
+              num === currentPage
+                ? "bg-sky-600 text-white font-bold"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            {num}
+          </button>
+        )
       )}
 
-      {/* Page Numbers */}
-      {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-        <Link
-          key={pageNum}
-          href={getQuery(pageNum)}
-          className={`px-3 py-1 rounded ${
-            pageNum === currentPage
-              ? "bg-sky-600 text-white font-bold"
-              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-          } transition`}
-        >
-          {pageNum}
-        </Link>
-      ))}
-
-      {/* Next Button */}
-      {currentPage < totalPages ? (
-        <Link
-          href={getQuery(currentPage + 1)}
-          className="px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-600 transition"
-        >
-          Next
-        </Link>
-      ) : (
-        <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded cursor-not-allowed">
-          Next
-        </span>
-      )}
+      <button
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        className={`px-4 py-2 rounded ${
+          currentPage === totalPages
+            ? "bg-gray-300 text-gray-700"
+            : "bg-sky-500 text-white hover:bg-sky-600"
+        }`}
+      >
+        Next
+      </button>
     </div>
   );
 }
