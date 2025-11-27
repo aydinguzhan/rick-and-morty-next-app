@@ -1,5 +1,5 @@
 import EpisodeList from "@/components/EpisodeList";
-import { Character } from "@/utils/types";
+import { Character, EpisodeDetail, SafeCharacter } from "@/utils/types";
 import { Services } from "@/utils/Utils";
 import Image from "next/image";
 
@@ -10,6 +10,7 @@ export default async function CharacterDetail({
 }) {
   const service = new Services();
   const detailInfo = (await service.getCharacterById(params.id)) as Character;
+  const episodesDetail = await service.getEpisode(detailInfo);
 
   return (
     <div className="min-h-screen bg-slate-900 text-white p-6 flex justify-center">
@@ -74,6 +75,43 @@ export default async function CharacterDetail({
         <div className="mt-8">
           <h2 className="text-2xl font-semibold mb-3">Episodes</h2>
           <EpisodeList episodes={detailInfo.episode} />
+        </div>
+        <div className="mt-8">
+          <div className="mx-auto ">
+            <div className="grid grid-cols-1 gap-6">
+              {episodesDetail.length > 0 && (
+                <div className="mt-8">
+                  <div className="max-w-5xl mx-auto p-6">
+                    <h2 className="text-2xl font-bold mb-6">Episodes Detail</h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {episodesDetail.map((episode: any) => (
+                        <div
+                          key={episode.id}
+                          className="border p-4 rounded-xl shadow hover:shadow-lg transition"
+                        >
+                          <h2 className="text-xl font-semibold">
+                            {episode.name}
+                          </h2>
+                          <p className="text-gray-500">{episode.episode}</p>
+                          <p className="text-sm text-gray-400">
+                            {episode.air_date}
+                          </p>
+
+                          <p className="mt-3 text-sm font-medium">
+                            Character Count:{" "}
+                            <span className="text-blue-600">
+                              {episode.characters?.length ?? 0}
+                            </span>
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -61,6 +61,10 @@ export class Helper {
       return [] as unknown as T;
     }
   }
+
+  breakEpisodeIds(character: Character) {
+    return character.episode.map((url) => url.split("/").pop());
+  }
 }
 
 export class Services {
@@ -107,7 +111,6 @@ export class Services {
       const res = await fetch(url, {
         cache: "no-cache",
       });
-
       if (!res.ok) throw new Error("API Error: " + res.status);
       character = await res.json();
     } catch (error) {
@@ -115,5 +118,18 @@ export class Services {
     }
 
     return character;
+  }
+
+  async getEpisode(character: Character) {
+    const episodeIds = this.helper.breakEpisodeIds(character);
+    const ids = episodeIds.join(",");
+    const episodes = await fetch(
+      `https://rickandmortyapi.com/api/episode/${ids}`
+    )
+      .then((res) => res.json())
+      .catch((err) => {
+        throw err;
+      });
+    return episodes;
   }
 }

@@ -37,6 +37,12 @@ export type FavoriteCharacter = {
   status: string;
   species: string;
 };
+export type EpisodeDetail = {
+  id: number;
+  name: string;
+  episode: string;
+  characters: string[];
+};
 
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
