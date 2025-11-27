@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 export default function GlobalError({ error }: { error: Error }) {
-  console.log("--->", error.stack);
   return (
     <html>
       <body className="flex flex-col items-center justify-center h-screen">

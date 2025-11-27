@@ -1,7 +1,7 @@
-import React from "react";
-
-type Props = {};
-
-export default function loading({}: Props) {
-  return <div>loading...</div>;
+export default function loading() {
+  return (
+    <div className="min-h-screen flex justify-center items-center">
+      <div className="text-white">loading...</div>
+    </div>
+  );
 }

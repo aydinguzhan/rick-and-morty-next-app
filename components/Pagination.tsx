@@ -1,18 +1,26 @@
 "use client";
 
+import { ArrowLeftCircle, ArrowRightCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
 };
 
 export default function Pagination({
   currentPage,
   totalPages,
-  onPageChange,
 }: PaginationProps) {
+  const router = useRouter();
+
+  const goToPage = (page: number) => {
+    router.push(`/?page=${page}`);
+  };
+
   const getPageNumbers = (): (number | string)[] => {
     const pages: (number | string)[] = [];
+
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
@@ -27,6 +35,7 @@ export default function Pagination({
       if (currentPage < totalPages - 2) pages.push("…");
       pages.push(totalPages);
     }
+
     return pages;
   };
 
@@ -35,31 +44,37 @@ export default function Pagination({
   return (
     <div className="flex justify-center items-center gap-2 mt-6 flex-wrap">
       <button
-        onClick={() => onPageChange(currentPage - 1)}
+        onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`px-4 py-2 rounded ${
-          currentPage === 1
-            ? "bg-gray-300 text-gray-700"
-            : "bg-sky-500 text-white hover:bg-sky-600"
-        }`}
+        className={`px-4 py-2 rounded-full transition 
+          ${
+            currentPage === 1
+              ? "bg-gray-300 text-gray-600"
+              : "bg-sky-500 text-white hover:bg-sky-600"
+          }
+        `}
       >
-        Prev
+        <ArrowLeftCircle />
       </button>
 
       {pageNumbers.map((num, idx) =>
         num === "…" ? (
-          <span key={`dots-${idx}`} className="px-3 py-1 text-white">
+          <span key={idx} className="px-3 py-1 text-gray-400">
             …
           </span>
         ) : (
           <button
-            key={num}
-            onClick={() => onPageChange(Number(num))}
-            className={`px-3 py-1 rounded ${
-              num === currentPage
-                ? "bg-sky-600 text-white font-bold"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
+            key={idx}
+            onClick={() => goToPage(Number(num))}
+            className={`
+              w-10 h-10 flex items-center justify-center rounded-full
+              transition-all duration-300
+              ${
+                num === currentPage
+                  ? "bg-sky-600 text-white font-bold scale-110 shadow-md"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }
+            `}
           >
             {num}
           </button>
@@ -67,15 +82,17 @@ export default function Pagination({
       )}
 
       <button
-        onClick={() => onPageChange(currentPage + 1)}
+        onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`px-4 py-2 rounded ${
-          currentPage === totalPages
-            ? "bg-gray-300 text-gray-700"
-            : "bg-sky-500 text-white hover:bg-sky-600"
-        }`}
+        className={`px-4 py-2 rounded-full transition 
+          ${
+            currentPage === totalPages
+              ? "bg-gray-300 text-gray-600"
+              : "bg-sky-500 text-white hover:bg-sky-600"
+          }
+        `}
       >
-        Next
+        <ArrowRightCircle />
       </button>
     </div>
   );

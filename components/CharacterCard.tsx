@@ -5,11 +5,17 @@ import Image from "next/image";
 
 type Props = {
   character: SafeCharacter;
+  goToPage: (id: number) => void;
 };
 
-export default function CharacterCard({ character }: Props) {
+export default function CharacterCard({ character, goToPage }: Props) {
   return (
-    <div className="w-full max-w-sm bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:cursor-pointer transition-transform duration-300 ">
+    <div
+      onClick={(e) => {
+        goToPage(character?.id as number);
+      }}
+      className="w-full max-w-sm bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:cursor-pointer transition-transform duration-300 "
+    >
       <div className="relative w-full h-64">
         <Image
           src={(character.image as string) ?? "/photos.avif"}
