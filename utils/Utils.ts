@@ -123,9 +123,12 @@ export class Services {
   async getEpisode(character: Character) {
     const episodeIds = this.helper.breakEpisodeIds(character);
     const ids = episodeIds.join(",");
-    const episodes = await fetch(
-      `https://rickandmortyapi.com/api/episode/${ids}`
-    )
+    const url = this.helper.createdUrl([
+      process.env.NEXT_PUBLIC_EPISODE_URL as string,
+      "/",
+      ids,
+    ]);
+    const episodes = await fetch(url)
       .then((res) => res.json())
       .catch((err) => {
         throw err;
