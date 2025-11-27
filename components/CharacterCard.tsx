@@ -1,20 +1,27 @@
 "use client";
 
-import { SafeCharacter } from "@/utils/types";
+import { Character, SafeCharacter } from "@/utils/types";
+import { HeartPlusIcon } from "lucide-react";
 import Image from "next/image";
+import { MouseEventHandler, ReactEventHandler } from "react";
 
 type Props = {
   character: SafeCharacter;
   goToPage: (id: number) => void;
+  addFav: (data: Character) => void;
 };
 
-export default function CharacterCard({ character, goToPage }: Props) {
+export default function CharacterCard({ character, goToPage, addFav }: Props) {
+  const handleFavClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    addFav(character as Character);
+  };
   return (
     <div
       onClick={(e) => {
         goToPage(character?.id as number);
       }}
-      className="w-full max-w-sm bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:cursor-pointer transition-transform duration-300 "
+      className="w-full max-w-sm bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:scale-95 hover:cursor-pointer transition-transform duration-300 "
     >
       <div className="relative w-full h-64">
         <Image
@@ -40,6 +47,11 @@ export default function CharacterCard({ character, goToPage }: Props) {
         <p>
           <strong>Gender:</strong> {character?.gender}
         </p>
+      </div>
+      <div className="flex justify-end p-2" onClick={handleFavClick}>
+        <div className="bg-red-500 p-2 rounded-full hover:bg-red-400 transition-all">
+          <HeartPlusIcon color="white" />
+        </div>
       </div>
     </div>
   );

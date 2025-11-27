@@ -1,5 +1,4 @@
-import { error } from "console";
-import { Character, CharacterResponse } from "./types";
+import { Character, CharacterResponse, FavoriteCharacter } from "./types";
 
 export class Helper {
   readonly mainUrl: string;
@@ -32,6 +31,35 @@ export class Helper {
     }
 
     return 1;
+  }
+  setLocalStorage(key: string, data: Character): void {
+    try {
+      const favs: FavoriteCharacter[] = JSON.parse(
+        localStorage.getItem(key) || "[]"
+      );
+      if (!favs.find((c) => c.id === data.id)) {
+        const toSave: FavoriteCharacter = {
+          id: data.id,
+          name: data.name,
+          image: data.image,
+          status: data.status,
+          species: data.species,
+        };
+        localStorage.setItem(key, JSON.stringify([...favs, toSave]));
+      }
+    } catch (error) {
+      console.error("LocalStorage set error:", error);
+    }
+  }
+
+  getLocalStorageByKey<T = FavoriteCharacter[]>(key: string): T {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? (JSON.parse(item) as T) : ([] as unknown as T);
+    } catch (error) {
+      console.error("LocalStorage get error:", error);
+      return [] as unknown as T;
+    }
   }
 }
 
@@ -75,7 +103,6 @@ export class Services {
       "/",
       paramId,
     ]);
-    console.log("URL ", url);
     try {
       const res = await fetch(url, {
         cache: "no-cache",

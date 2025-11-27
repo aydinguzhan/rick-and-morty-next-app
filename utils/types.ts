@@ -30,6 +30,13 @@ export interface Character {
   url: string;
   created: string;
 }
+export type FavoriteCharacter = {
+  id: number;
+  name: string;
+  image: string;
+  status: string;
+  species: string;
+};
 
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];

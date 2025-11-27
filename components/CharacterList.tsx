@@ -2,6 +2,7 @@
 import CharacterCard from "./CharacterCard";
 import { Character } from "@/utils/types";
 import { useRouter } from "next/navigation";
+import { useFavoriteStore } from "@/utils/store/favoriteStore";
 
 type Props = {
   charactersProp: Character[];
@@ -9,6 +10,11 @@ type Props = {
 
 export default function CharacterList({ charactersProp = [] }: Props) {
   const router = useRouter();
+  const addFavorite = useFavoriteStore((s) => s.addFavorite);
+  const toggleFavorite = useFavoriteStore((s) => s.toggleFavorite);
+  const addFav = (data: Character) => {
+    addFavorite(data);
+  };
 
   return (
     <div className="p-4">
@@ -18,6 +24,7 @@ export default function CharacterList({ charactersProp = [] }: Props) {
             key={char.id}
             character={char}
             goToPage={(id: number) => router.push(`detail/${id}`)}
+            addFav={(data: any) => addFav(data)}
           />
         ))}
       </div>
