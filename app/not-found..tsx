@@ -1,8 +1,4 @@
-"use-client";
-
 import GoHomeButton from "@/components/GoHomeButton";
-import { Home, HomeIcon } from "lucide-react";
-import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -10,7 +6,7 @@ export default function NotFound() {
       <h1 className="text-6xl font-extrabold mb-4 text-red-500">404</h1>
       <h2 className="text-3xl font-semibold mb-2">Page Not Found</h2>
       <p className="text-gray-700 dark:text-gray-300 mb-6 text-center max-w-md">
-        ÜSorry, the page you were looking for could not be found. The URL may be
+        Sorry, the page you were looking for could not be found. The URL may be
         incorrect or the page may have moved.
       </p>
       <GoHomeButton />
