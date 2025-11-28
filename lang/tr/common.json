@@ -1,9 +1,9 @@
 {
   "welcome": "Welcome to our application",
-  "languageSelect": "Select your language",
-  "status": "Status",
-  "species": "Species",
-  "location": "Location",
+  "languageSelect": "Dil seçiniz",
+  "status": "Durum",
+  "species": "Türler",
+  "location": "Lokasyon",
   "gender": "Cinsiyet",
   "home": "Anasayfa",
   "favorites": "Favoriler",
