@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { PlusCircle } from "lucide-react";
 import { EpisodeNode } from "@/utils/node";
-
+import { useI18n } from "@/app/providers/I18nProvider";
 type Props = {
   episodes: string[];
 };
 
 export default function EpisodeList({ episodes }: Props) {
+  const { t } = useI18n();
+
   const [node] = useState(() => {
     const epNode = new EpisodeNode(5);
     epNode.setEpisodes(episodes);
@@ -25,7 +27,7 @@ export default function EpisodeList({ episodes }: Props) {
             key={i}
             className="bg-slate-800/40 p-4 border border-slate-700 rounded-xl text-gray-300 hover:bg-slate-700/40 transition flex items-center justify-center h-24"
           >
-            Episode {ep.split("/").pop()}
+            {t("episode")} {ep.split("/").pop()}
           </li>
         ))}
       </ul>
@@ -39,7 +41,9 @@ export default function EpisodeList({ episodes }: Props) {
           className="flex items-center gap-2 mt-4 mx-auto text-sky-400 hover:text-sky-300 transition"
         >
           <PlusCircle size={22} />
-          <span className="text-lg ">More ({node.remainingEpisodes()})</span>
+          <span className="text-lg ">
+            {t("more")} ({node.remainingEpisodes()})
+          </span>
         </button>
       )}
     </div>

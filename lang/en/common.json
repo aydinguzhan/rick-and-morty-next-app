@@ -1,0 +1,16 @@
+{
+  "welcome": "Welcome to our application",
+  "languageSelect": "Select your language",
+  "status": "Status",
+  "species": "Species",
+  "location": "Location",
+  "gender": "Gender",
+  "home": "Home",
+  "favorites": "Favorites",
+  "goback_home": "Go Back Home",
+  "turkce": "Turkish",
+  "english": "English",
+  "episode": "Episode",
+  "more": "More",
+  "no_favorites_added_yet": "No favorites added yet."
+}

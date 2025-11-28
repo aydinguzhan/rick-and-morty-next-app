@@ -1,22 +1,19 @@
 "use client";
-import { MouseEventHandler, useEffect } from "react";
+import { useEffect } from "react";
 import { FavoriteCharacter } from "@/utils/types";
 import Image from "next/image";
 import { useFavoriteStore } from "@/utils/store/favoriteStore";
 import { useRouter } from "next/navigation";
-import {
-  Delete,
-  RemoveFormatting,
-  RemoveFormattingIcon,
-  TimerReset,
-  X,
-} from "lucide-react";
+import { X } from "lucide-react";
+import { useI18n } from "@/app/providers/I18nProvider";
 type Props = {};
 
 export default function FavoritesList({}: Props) {
   const favorites = useFavoriteStore((state) => state.favorites);
   const setFavorites = useFavoriteStore((state) => state.setFavorites);
   const removeFavorite = useFavoriteStore((s) => s.removeFavorite);
+  const { t } = useI18n();
+
   const router = useRouter();
   useEffect(() => {
     const saved = localStorage.getItem("favorites");
@@ -27,7 +24,9 @@ export default function FavoritesList({}: Props) {
   }, [setFavorites]);
   if (!favorites.length)
     return (
-      <p className="text-gray-400 text-center mt-8">No favorites added yet.</p>
+      <p className="text-gray-400 text-center mt-8">
+        {t("no_favorites_added_yet")}
+      </p>
     );
 
   return (

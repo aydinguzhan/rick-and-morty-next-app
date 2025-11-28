@@ -3,7 +3,7 @@
 import { Character, SafeCharacter } from "@/utils/types";
 import { HeartPlusIcon } from "lucide-react";
 import Image from "next/image";
-import { MouseEventHandler, ReactEventHandler } from "react";
+import { useI18n } from "@/app/providers/I18nProvider";
 
 type Props = {
   character: SafeCharacter;
@@ -12,6 +12,7 @@ type Props = {
 };
 
 export default function CharacterCard({ character, goToPage, addFav }: Props) {
+  const { t } = useI18n();
   const handleFavClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     addFav(character as Character);
@@ -36,16 +37,16 @@ export default function CharacterCard({ character, goToPage, addFav }: Props) {
       <div className="p-4 flex flex-col gap-1 text-white">
         <h3 className="font-bold">{character?.name}</h3>
         <p>
-          <strong>Status:</strong> {character?.status}
+          <strong>{t("status")}</strong> {character?.status}
         </p>
         <p>
-          <strong>Species:</strong> {character?.species}
+          <strong>{t("species")}</strong> {character?.species}
         </p>
         <p>
-          <strong>Location:</strong> {character?.location?.name}
+          <strong>{t("location")}</strong> {character?.location?.name}
         </p>
         <p>
-          <strong>Gender:</strong> {character?.gender}
+          <strong>{t("gender")}:</strong> {character?.gender}
         </p>
       </div>
       <div className="flex justify-end p-2" onClick={handleFavClick}>

@@ -11,7 +11,6 @@ type Props = {
 export default function CharacterList({ charactersProp = [] }: Props) {
   const router = useRouter();
   const addFavorite = useFavoriteStore((s) => s.addFavorite);
-  const toggleFavorite = useFavoriteStore((s) => s.toggleFavorite);
   const addFav = (data: Character) => {
     addFavorite(data);
   };

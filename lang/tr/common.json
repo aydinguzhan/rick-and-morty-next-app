@@ -1,0 +1,16 @@
+{
+  "welcome": "Welcome to our application",
+  "languageSelect": "Select your language",
+  "status": "Status",
+  "species": "Species",
+  "location": "Location",
+  "gender": "Cinsiyet",
+  "home": "Anasayfa",
+  "favorites": "Favoriler",
+  "goback_home": "Ansayfaya dön",
+  "turkce": "Türkçe",
+  "english": "İnglizce",
+  "episode": "Bölüm",
+  "more": "Daha fazla",
+  "no_favorites_added_yet": "Henüz eklenmiş bir favoriniz yok."
+}

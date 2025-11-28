@@ -2,11 +2,15 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useI18n } from "@/app/providers/I18nProvider";
+import LangCheckBox from "./LangCheckBox";
+
 type Props = {};
 
 export default function Navbar({}: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const { t } = useI18n();
   return (
     <>
       <header className="w-full bg-slate-800 dark:bg-slate-700 shadow-md text-white">
@@ -14,14 +18,14 @@ export default function Navbar({}: Props) {
           <div className="text-2xl font-bold text-white">
             <Link href="/">Rick & Morty</Link>
           </div>
-
+          <LangCheckBox />
           <nav className="hidden md:flex space-x-6">
             <Link href="/" className="hover:text-sky-400 transition">
-              Home
+              {t("home")}
             </Link>
 
             <Link href="/favorites" className="hover:text-sky-400 transition">
-              Favorites
+              {t("favorites")}
             </Link>
           </nav>
 
@@ -39,11 +43,11 @@ export default function Navbar({}: Props) {
         {menuOpen && (
           <nav className="md:hidden bg-slate-800 dark:bg-slate-700 px-4 py-2 flex flex-col gap-2">
             <Link href="/" className="hover:text-sky-400 transition">
-              Home
+              {t("home")}
             </Link>
 
             <Link href="/favorites" className="hover:text-sky-400 transition">
-              Favorites
+              {t("favorites")}
             </Link>
           </nav>
         )}
