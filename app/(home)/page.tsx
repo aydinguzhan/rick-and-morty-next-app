@@ -1,5 +1,4 @@
 import CharacterList from "@/components/CharacterList";
-import Pagination from "@/components/Pagination";
 import { CharacterNode, PageInfoNode } from "@/utils/node";
 import { Services } from "@/utils/Utils";
 export default async function Home({
@@ -18,7 +17,10 @@ export default async function Home({
   return (
     <main className="min-h-screen">
       <div className="max-w-5xl mx-auto px-4 grid gap-8">
-        <CharacterList charactersProp={characterNode.getCharacters()} page={page}  />
+        <CharacterList
+          charactersProp={characterNode.getCharacters()}
+          page={page}
+        />
       </div>
     </main>
   );
