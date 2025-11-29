@@ -39,7 +39,7 @@ Proje Vercel üzerine deploy edilmiştir.
 
 Canlı sürüme aşağıdaki adresten ulaşabilirsiniz:
 
-https://vercel.com/aydinguzhans-projects/rick-and-morty-next-app
+https://rick-and-morty-next-app-eight.vercel.app/
 
 ## Özellikler
 
