@@ -59,7 +59,7 @@ export default function Pagination({
   const pageNumbers = getPageNumbers();
 
   return (
-    <div className="flex justify-center items-center gap-2 mt-6 flex-wrap">
+    <div className="flex justify-center items-center gap-2 mt-6 flex-wrap font-medium text-sm">
       <button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}

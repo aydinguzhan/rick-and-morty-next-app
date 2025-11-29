@@ -30,38 +30,40 @@ export default function FavoritesList({}: Props) {
     );
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
-      {favorites.map((char) => (
-        <div
-          key={char.id}
-          className="bg-slate-800 p-4 rounded-xl flex flex-col items-center  hover:cursor-pointer transition-transform duration-300"
-          onClick={() => router.push("/detail/" + String(char.id))}
-        >
-          <div className="w-full flex justify-end">
-            <div className="p-1 bg-red-600 rounded-full flex justify-center items-center hover:bg-red-500 transition-all">
-              <button
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  e.stopPropagation();
-                  removeFavorite(char.id);
-                }}
-              >
-                <X color="white" />
-              </button>
+    <div className="max-w-5xl mx-auto px-4 grid gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+        {favorites.map((char) => (
+          <div
+            key={char.id}
+            className="bg-slate-800 p-4 rounded-xl flex flex-col items-center  hover:cursor-pointer transition-transform duration-300"
+            onClick={() => router.push("/detail/" + String(char.id))}
+          >
+            <div className="w-full flex justify-end">
+              <div className="p-1 bg-red-600 rounded-full flex justify-center items-center hover:bg-red-500 transition-all">
+                <button
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    e.stopPropagation();
+                    removeFavorite(char.id);
+                  }}
+                >
+                  <X color="white" />
+                </button>
+              </div>
             </div>
+            <Image
+              src={char.image ?? "/photos.avif"}
+              alt={char.name ?? "char name"}
+              width={150}
+              height={150}
+              className="rounded-xl object-cover hover:scale-95 transition-all"
+            />
+            <h3 className="mt-2 font-semibold text-white">{char.name}</h3>
+            <p className="text-gray-300 text-sm">
+              {char.species} - {char.status}
+            </p>
           </div>
-          <Image
-            src={char.image ?? "/photos.avif"}
-            alt={char.name ?? "char name"}
-            width={150}
-            height={150}
-            className="rounded-xl object-cover hover:scale-95 transition-all"
-          />
-          <h3 className="mt-2 font-semibold text-white">{char.name}</h3>
-          <p className="text-gray-300 text-sm">
-            {char.species} - {char.status}
-          </p>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

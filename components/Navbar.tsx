@@ -18,7 +18,6 @@ export default function Navbar({}: Props) {
           <div className="text-2xl font-bold text-white">
             <a href="/">Rick & Morty</a>
           </div>
-          <LangCheckBox />
           <nav className="hidden md:flex space-x-6">
             <Link href="/" className="hover:text-sky-400 transition">
               {t("home")}
@@ -28,7 +27,9 @@ export default function Navbar({}: Props) {
               {t("favorites")}
             </Link>
           </nav>
-
+          <div>
+            <LangCheckBox />
+          </div>
           <div className="md:hidden">
             <button onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? (
