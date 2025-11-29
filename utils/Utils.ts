@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { Character, CharacterResponse, FavoriteCharacter } from "./types";
 
 export class Helper {
@@ -48,7 +49,7 @@ export class Helper {
         localStorage.setItem(key, JSON.stringify([...favs, toSave]));
       }
     } catch (error) {
-      console.error("LocalStorage set error:", error);
+      console.error("error:", error);
     }
   }
 
@@ -57,7 +58,7 @@ export class Helper {
       const item = localStorage.getItem(key);
       return item ? (JSON.parse(item) as T) : ([] as unknown as T);
     } catch (error) {
-      console.error("LocalStorage get error:", error);
+      console.error("error:", error);
       return [] as unknown as T;
     }
   }
@@ -93,6 +94,50 @@ export class Services {
     } catch (error) {
       throw error;
     }
+  }
+
+  async getCharacterFilter(queryString: {
+    name: string;
+    status: string;
+    species: string;
+    page?: string;
+  }) {
+    const { name, status, species, page } = queryString;
+    let finalUrl = this.helper.createdUrl([
+      process.env.NEXT_PUBLIC_CHARACTER_URL as string,
+    ]);
+    let characters:
+      | CharacterResponse
+      | {
+          info: {};
+          results: [];
+        } = {
+      info: {},
+      results: [],
+    };
+
+    try {
+      const params = new URLSearchParams();
+
+      if (name) params.set("name", name);
+      if (status) params.set("status", status);
+      if (species) params.set("species", species);
+      if (page) params.set("page", page);
+
+      finalUrl = `${finalUrl}?${params.toString()}`;
+      const res = await fetch(finalUrl, {
+        cache: "no-cache",
+      });
+      if (!res.ok) {
+        if (res.status === 404) return characters;
+      }
+      characters = await res.json();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+
+    return characters;
   }
 
   async getCharacterById(id: number | string): Promise<Character | {}> {

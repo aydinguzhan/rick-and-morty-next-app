@@ -16,7 +16,7 @@ export default function Navbar({}: Props) {
       <header className="w-full bg-slate-800 dark:bg-slate-700 shadow-md text-white">
         <div className="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
           <div className="text-2xl font-bold text-white">
-            <Link href="/">Rick & Morty</Link>
+            <a href="/">Rick & Morty</a>
           </div>
           <LangCheckBox />
           <nav className="hidden md:flex space-x-6">

@@ -1,31 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+type Props = {
+  onFilter: (filters: {
+    name: string;
+    status: string;
+    species: string;
+  }) => void;
+};
 
-export default function FilterBar() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const initialName = searchParams.get("name") || "";
-  const initialStatus = searchParams.get("status") || "";
-  const initialSpecies = searchParams.get("species") || "";
-
-  const [name, setName] = useState(initialName);
-  const [status, setStatus] = useState(initialStatus);
-  const [species, setSpecies] = useState(initialSpecies);
-
+export default function FilterBar({ onFilter }: Props) {
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState("");
+  const [species, setSpecies] = useState("");
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const params = new URLSearchParams();
-
-    if (name) params.set("name", name);
-    if (status) params.set("status", status);
-    if (species) params.set("species", species);
-
-    params.set("page", "1");
-
-    router.push(`/characters?${params.toString()}`);
+    onFilter({ name, status, species });
   };
 
   return (

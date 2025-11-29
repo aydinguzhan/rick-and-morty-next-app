@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
 
 export default function GlobalError({ error }: { error: Error }) {
   return (

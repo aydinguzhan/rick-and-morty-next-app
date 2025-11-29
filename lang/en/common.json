@@ -12,5 +12,7 @@
   "english": "English",
   "episode": "Episode",
   "more": "More",
-  "no_favorites_added_yet": "No favorites added yet."
+  "no_favorites_added_yet": "No favorites added yet.",
+  "data_not_found": "Data not found",
+  "something_went_error": "Something went wrong!"
 }

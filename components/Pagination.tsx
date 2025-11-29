@@ -6,16 +6,40 @@ import { useRouter } from "next/navigation";
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
+  filters?: {
+    name?: string;
+    status?: string;
+    species?: string;
+  };
+  isClient?: boolean;
 };
 
 export default function Pagination({
   currentPage,
   totalPages,
+  filters,
+  isClient = true,
 }: PaginationProps) {
   const router = useRouter();
 
   const goToPage = (page: number) => {
-    router.push(`/?page=${page}`);
+    let params: URLSearchParams;
+    if (isClient) {
+      params = new URLSearchParams({
+        ...filters,
+        page: String(page),
+      });
+      router.push(`/?${params.toString()}`);
+    } else {
+      const goToPage = (page: number) => {
+        const params = new URLSearchParams({
+          ...filters,
+          page: String(page),
+        });
+
+        router.push(`/characters?${params.toString()}`);
+      };
+    }
   };
 
   const getPageNumbers = (): (number | string)[] => {

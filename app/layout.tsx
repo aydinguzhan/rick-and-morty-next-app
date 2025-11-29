@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={`${inter.className}  bg-gray-50 dark:bg-gray-900`}>
         <I18nProvider>

@@ -12,5 +12,7 @@
   "english": "İnglizce",
   "episode": "Bölüm",
   "more": "Daha fazla",
-  "no_favorites_added_yet": "Henüz eklenmiş bir favoriniz yok."
+  "no_favorites_added_yet": "Henüz eklenmiş bir favoriniz yok.",
+  "data_not_found": "Veri bulunamadı",
+  "something_went_error": "Something went wrong!"
 }
