@@ -18,10 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body className={`${inter.className}  bg-gray-50 dark:bg-gray-900`}>
         <I18nProvider>
           <Navbar />
-          <div className="p-4">{children}</div>
+          {children}
         </I18nProvider>
       </body>
     </html>

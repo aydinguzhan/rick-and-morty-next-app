@@ -14,13 +14,13 @@ type Locale = keyof typeof languages;
 type I18nContextType = {
   locale: Locale;
   setLocale: (lang: Locale) => void;
-  t: (key: keyof typeof en) => string;
+  t: (key: keyof typeof tr) => string;
 };
 
 const I18nContext = createContext<I18nContextType | null>(null);
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
+  const [locale, setLocaleState] = useState<Locale>("tr");
 
   const setLocale = (lang: Locale) => {
     setLocaleState(lang);

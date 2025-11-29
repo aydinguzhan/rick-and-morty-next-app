@@ -2,7 +2,7 @@ import CharacterList from "@/components/CharacterList";
 import Pagination from "@/components/Pagination";
 import { CharacterNode } from "@/utils/node";
 import { Services } from "@/utils/Utils";
-
+import FilterBar from "@/components/FilterBar";
 export default async function Home({
   searchParams,
 }: {
@@ -18,8 +18,11 @@ export default async function Home({
 
   return (
     <main className="min-h-screen">
-      <CharacterList charactersProp={characterNode.getCharacters()} />
-      <Pagination currentPage={page} totalPages={data.info.pages} />
+      <div className="max-w-5xl mx-auto px-4 grid gap-8">
+        <FilterBar />
+        <CharacterList charactersProp={characterNode.getCharacters()} />
+        <Pagination currentPage={page} totalPages={data.info.pages} />
+      </div>
     </main>
   );
 }
