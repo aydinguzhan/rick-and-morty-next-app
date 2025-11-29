@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useFavoriteStore } from "@/utils/store/favoriteStore";
 import { Services } from "@/utils/Utils";
 import FilterBar from "./FilterBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useI18n } from "@/app/providers/I18nProvider";
 import Pagination from "./Pagination";
 import CharacterCardSkeleton from "./CharacterCardSkeleton";
@@ -13,18 +13,21 @@ import CharacterCardSkeleton from "./CharacterCardSkeleton";
 type Props = {
   charactersProp: Character[];
   page: number;
+  pageInfoProp: Info;
 };
 
-export default function CharacterList({ charactersProp = [], page }: Props) {
+export default function CharacterList({
+  charactersProp = [],
+  page,
+  pageInfoProp,
+}: Props) {
   const [characters, setCharacters] = useState<Character[]>(charactersProp);
-  const [pageInfo, setPageInfo] = useState<Info>({
-    count: 0,
-    next: null,
-    prev: null,
-    current: 1,
-    pages: 0,
-  });
-
+  const [currentPage, setCurrentPage] = useState(page);
+  const [pageInfo, setPageInfo] = useState<Info>(pageInfoProp);
+  useEffect(() => {
+    setCharacters(charactersProp);
+    setCurrentPage(page);
+  }, [charactersProp, page]);
   const [pageFilterValue, setFilterValue] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,9 +45,7 @@ export default function CharacterList({ charactersProp = [], page }: Props) {
   }) => {
     setFilterValue(filters);
     setIsLoading(true);
-
     const responseCharacter = await service.getCharacterFilter(filters);
-
     setCharacters(responseCharacter.results);
     setPageInfo(responseCharacter.info as Info);
     setIsLoading(false);
@@ -76,9 +77,10 @@ export default function CharacterList({ charactersProp = [], page }: Props) {
           </div>
 
           <Pagination
-            currentPage={page}
+            currentPage={currentPage}
             totalPages={pageInfo.pages}
             filters={pageFilterValue}
+            isClient
           />
         </div>
       )}

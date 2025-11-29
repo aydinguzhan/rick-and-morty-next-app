@@ -23,23 +23,16 @@ export default function Pagination({
   const router = useRouter();
 
   const goToPage = (page: number) => {
-    let params: URLSearchParams;
-    if (isClient) {
-      params = new URLSearchParams({
-        ...filters,
-        page: String(page),
-      });
-      router.push(`/?${params.toString()}`);
-    } else {
-      const goToPage = (page: number) => {
-        const params = new URLSearchParams({
-          ...filters,
-          page: String(page),
-        });
+    const params = new URLSearchParams();
 
-        router.push(`/characters?${params.toString()}`);
-      };
-    }
+    if (filters?.name) params.set("name", filters.name);
+    if (filters?.status) params.set("status", filters.status);
+    if (filters?.species) params.set("species", filters.species);
+
+    params.set("page", String(page));
+
+    const base = isClient ? "/" : "/characters";
+    router.push(`${base}?${params.toString()}`);
   };
 
   const getPageNumbers = (): (number | string)[] => {

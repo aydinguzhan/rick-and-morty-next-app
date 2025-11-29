@@ -17,15 +17,21 @@ export class CharacterNode {
 }
 
 export class PageInfoNode {
-  private info: Info | null;
+  private info: Info;
   private clientCurrentPage: number;
   constructor() {
-    this.info = null;
+    this.info = {
+      count: 0,
+      next: null,
+      pages: 0,
+      prev: null,
+      current: 1,
+    };
     this.clientCurrentPage = 1;
   }
 
   setPageInfo(info: Info) {
-    this.info = info;
+    this.info = info ?? this.info;
   }
   setClientPageAttack(currentPageNumber: number) {
     this.clientCurrentPage = currentPageNumber;

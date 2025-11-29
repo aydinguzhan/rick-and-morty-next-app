@@ -10,7 +10,6 @@ const slides = [
     title: "Rick & Morty",
     subtitle: "Kaosa hazır mısın?",
     image: "/morty.png",
-
     video: null,
   },
   {
@@ -26,16 +25,17 @@ export default function HeroSlider() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    const interval = setInterval(
+      () => setIndex((prev) => (prev + 1) % slides.length),
+      5000
+    );
     return () => clearInterval(interval);
   }, []);
 
   const current = slides[index];
 
   return (
-    <div className="relative w-full h-[70vh] overflow-hidden rounded-2xl shadow-xl">
+    <div className="relative w-full h-[55vh] md:h-[60vh] lg:h-[65vh] overflow-hidden rounded-2xl shadow-xl">
       <AnimatePresence>
         <motion.div
           key={current.id}
@@ -65,11 +65,13 @@ export default function HeroSlider() {
 
           <div className="absolute inset-0 bg-black/40" />
 
-          <div className="absolute bottom-10 left-10 text-white">
-            <h1 className="text-4xl font-bold drop-shadow-lg">
+          <div className="absolute bottom-8 left-8 md:bottom-14 md:left-14 text-white">
+            <h1 className="text-3xl md:text-5xl font-bold drop-shadow-lg">
               {current.title}
             </h1>
-            <p className="text-xl mt-2 drop-shadow-lg">{current.subtitle}</p>
+            <p className="text-lg md:text-2xl mt-2 drop-shadow-lg">
+              {current.subtitle}
+            </p>
           </div>
         </motion.div>
       </AnimatePresence>
@@ -79,8 +81,10 @@ export default function HeroSlider() {
           <div
             key={s.id}
             onClick={() => setIndex(i)}
-            className={`w-3 h-3 rounded-full cursor-pointer transition-all ${
-              i === index ? "bg-white scale-150" : "bg-white/50"
+            className={`w-4 h-4 md:w-5 md:h-5 rounded-full cursor-pointer transition-all ${
+              i === index
+                ? "bg-white scale-150 shadow-lg"
+                : "bg-white/50 hover:bg-white/70"
             }`}
           />
         ))}

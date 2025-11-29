@@ -20,6 +20,7 @@ export default async function Home({
         <CharacterList
           charactersProp={characterNode.getCharacters()}
           page={page}
+          pageInfoProp={pageInfoNode.getPageInfo()}
         />
       </div>
     </main>
