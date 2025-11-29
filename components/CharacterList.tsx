@@ -3,7 +3,7 @@ import CharacterCard from "./CharacterCard";
 import { Character } from "@/utils/types";
 import { useRouter } from "next/navigation";
 import { useFavoriteStore } from "@/utils/store/favoriteStore";
-
+import FilterBar from "./FilterBar";
 type Props = {
   charactersProp: Character[];
 };
@@ -17,6 +17,7 @@ export default function CharacterList({ charactersProp = [] }: Props) {
 
   return (
     <div className="p-4">
+      <FilterBar />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {charactersProp.map((char) => (
           <CharacterCard

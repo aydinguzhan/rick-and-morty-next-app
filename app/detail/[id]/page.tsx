@@ -1,5 +1,5 @@
 import EpisodeList from "@/components/EpisodeList";
-import { Character, EpisodeDetail, SafeCharacter } from "@/utils/types";
+import { Character } from "@/utils/types";
 import { Services } from "@/utils/Utils";
 import Image from "next/image";
 

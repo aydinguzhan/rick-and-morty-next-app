@@ -1,9 +1,6 @@
 "use client";
 
-import Home from "@/app/page";
 import GoHomeButton from "@/components/GoHomeButton";
-import { HomeIcon } from "lucide-react";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export default function GlobalError({ error }: { error: Error }) {
