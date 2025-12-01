@@ -60,3 +60,4 @@ Responsive tasarım (TailwindCSS)
 1. Filtreleme sistemi Next.js 13 App Router yapısında daha efektif ve URL query ile senkronize şekilde uygulanabilir.
 2. Daha esnek Url base bir yapi kurgulanabilirdi. ( Sorgulama urllerine gore response render edilebilir sayfalar). Bunu tercih etmedim cunku kucuk bir proje ve zaman merfumu
 3. Yerel zamanı bulamadığımdan, tarih/saat ile ilgili özellikler ve bazı UI iyileştirmeleri eksik olabilir.
+4. Favorilere eklemede toggle metodu yazıldı ama implement edilemedi. Toast message eklenebilirdi .
